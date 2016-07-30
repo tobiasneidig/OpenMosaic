@@ -6,6 +6,7 @@ import sys
 import features
 
 INDEX_PATH = "./index/"
+USED_IMAGES = set([])
 
 def readIndex():
     json_data = open(INDEX_PATH + "histogram.index").read()
@@ -36,6 +37,7 @@ def getIndexImage(fts, index, vectors):
         if distance < minDistance:
             minDistance = distance
             imagefile = item["file"]
+    USED_IMAGES.add(imagefile)
     return imagefile
 
 def processLine(i, w, index, inputImage, tileSize, channels):
@@ -73,6 +75,7 @@ def main():
         
     print "Finished processing of image"
      
+    print USED_IMAGES;
     
     cv2.imwrite(str(sys.argv[4]), inputImage)
      
